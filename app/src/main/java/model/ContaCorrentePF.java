@@ -10,7 +10,12 @@ package model;
  */
 public class ContaCorrentePF extends ContaPF{
     private float creditDisponible, creditUsed;
-
+    
+    public ContaCorrentePF(Cliente client){
+        super(client);
+        super.accountType = 1;
+    }
+    
     public float getCreditDisponible() {
         return creditDisponible;
     }

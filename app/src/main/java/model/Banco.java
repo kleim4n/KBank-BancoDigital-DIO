@@ -4,13 +4,16 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author gklei
  */
 public class Banco {
     private String name = "KBank";
-
+    protected List<ContaPF> accountsPF;
+    
     public String getName() {
         return name;
     }

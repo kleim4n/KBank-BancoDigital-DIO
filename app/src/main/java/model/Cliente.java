@@ -11,8 +11,14 @@ import java.util.Date;
  * @author gklei
  */
 public class Cliente {
-    private int id;
-
+    protected int id;
+    protected String cpf, name, adress;
+    protected Date birthday, signupAt;
+    
+    public Cliente(){
+        this.signupAt = new Date(System.currentTimeMillis());
+    }
+    
     public int getId() {
         return id;
     }
@@ -20,8 +26,6 @@ public class Cliente {
     public void setId(int id) {
         this.id = id;
     }
-    private String cpf, name, adress;
-    private Date birthday, singupAt;
 
     public String getCpf() {
         return cpf;
@@ -56,10 +60,10 @@ public class Cliente {
     }
 
     public Date getSingupAt() {
-        return singupAt;
+        return signupAt;
     }
 
     public void setSingupAt(Date singupAt) {
-        this.singupAt = singupAt;
+        this.signupAt = singupAt;
     }
 }

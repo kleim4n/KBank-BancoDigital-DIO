@@ -5,30 +5,57 @@
 package model;
 
 import java.util.Date;
+import util.IContaPF;
 
 /**
  *
  * @author gklei
  */
-public class ContaPF extends Cliente{
-    private String password;
-    private Date openingDate;
-    private float balance;
-    private boolean active;
-    private int agencyNumber, accountNumber;
+public abstract class ContaPF implements IContaPF{
+    protected Cliente client;
+    protected String password;
+    protected Date openingDate;
+    protected float balance;
+    protected boolean active;
+    private int agencyNumber = 1, accountNumber;
+    protected int accountType;
+    private static int SEQUENTIAL = 1;
     
-    public void deposit(float cash) {
-        this.balance += cash;
+    public ContaPF(Cliente client){
+        this.client = client;
+        this.accountNumber = SEQUENTIAL++;
+        this.openingDate = new Date(System.currentTimeMillis());
+        this.active = true;
+    }
+
+    public Cliente getClient() {
+        return client;
     }
     
-    public void withdraw(float cash) {
+    @Override
+    public void deposit(float cash) {
+        this.balance += cash;
+        this.printGeneralInfos();
+    }
+    
+    @Override
+    public boolean withdraw(float cash) {
         if(this.balance >= cash){
             this.balance -= cash;
+            this.printGeneralInfos();
+            return true;
         }
+        this.printGeneralInfos();
+        return false;
     }
     
     public void transfer(float cash, int agencyNumber, int accountNumber){
         
+    }
+    
+    @Override
+    public void transfer(float cash, ContaPF account){
+        if(this.withdraw(cash)) account.deposit(cash);
     }
     
     public int getAgencyNumber() {
@@ -77,4 +104,15 @@ public class ContaPF extends Cliente{
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public void printGeneralInfos() {
+        System.out.println(this.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "ContaPF{" + " balance=" + balance + ", agencyNumber=" + agencyNumber + ", accountNumber=" + accountNumber + ", openingDate=" + openingDate + ", active=" + active + ", accountType=" + accountType + '}';
+    }
+    
 }
