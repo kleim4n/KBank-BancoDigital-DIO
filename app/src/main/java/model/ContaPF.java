@@ -4,7 +4,10 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import util.IContaPF;
 
 /**
@@ -20,6 +23,7 @@ public abstract class ContaPF implements IContaPF{
     private int agencyNumber = 1, accountNumber;
     protected int accountType;
     private static int SEQUENTIAL = 1;
+    protected List<String> accountsTypes = new ArrayList<>(Arrays.asList("Incompleto", "Conta Corrente", "Conta Poupança"));
     
     public ContaPF(Cliente client){
         this.client = client;
@@ -112,7 +116,14 @@ public abstract class ContaPF implements IContaPF{
 
     @Override
     public String toString() {
-        return "ContaPF{" + " balance=" + balance + ", agencyNumber=" + agencyNumber + ", accountNumber=" + accountNumber + ", openingDate=" + openingDate + ", active=" + active + ", accountType=" + accountType + '}';
+        //return "ContaPF{" + " balance=" + balance + ", agencyNumber=" + agencyNumber + ", accountNumber=" + accountNumber + ", openingDate=" + openingDate + ", active=" + active + ", accountType=" + accountType + '}';
+        String message = "Cliente |\t Tipo de Conta |\t Saldo\n" + this.client.getName() + " |\t " + this.accountsTypes.get(this.accountType) + " |\t " + this.balance + "\n";
+        /*
+        for(int i = 0; i < message.length(); i++){
+            message += "_";
+        }
+        */
+        return message;
     }
     
 }

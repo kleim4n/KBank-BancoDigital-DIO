@@ -9,27 +9,39 @@ package model;
  * @author gklei
  */
 public class ContaCorrentePF extends ContaPF{
-    private float creditDisponible, creditUsed;
+    private float creditTotal;
     
     public ContaCorrentePF(Cliente client){
         super(client);
         super.accountType = 1;
     }
     
-    public float getCreditDisponible() {
-        return creditDisponible;
-    }
-
-    public void setCreditDisponible(float creditDisponible) {
-        this.creditDisponible = creditDisponible;
-    }
-
-    public float getCreditUsed() {
-        return creditUsed;
-    }
-
-    public void setCreditUsed(float creditUsed) {
-        this.creditUsed = creditUsed;
+    @Override
+    public boolean withdraw(float cash) {
+        if(this.balance + this.creditTotal >= cash){
+            this.balance -= cash;
+            this.printGeneralInfos();
+            return true;
+        }
+        this.printGeneralInfos();
+        return false;
     }
     
+    @Override
+    public void transfer(float cash, ContaPF account){
+        if(this.withdraw(cash)) account.deposit(cash);
+    }
+    
+    public float getCreditTotal() {
+        return creditTotal;
+    }
+
+    public void setCreditTotal(float creditTotal) {
+        this.creditTotal = creditTotal;
+    }
+    
+    public float getCreditDisponible() {
+        if(this.balance < 0) return creditTotal + this.balance;
+        else return creditTotal;
+    }
 }
