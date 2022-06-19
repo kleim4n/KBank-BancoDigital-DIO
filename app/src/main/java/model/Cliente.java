@@ -11,12 +11,15 @@ import java.util.Date;
  * @author gklei
  */
 public class Cliente {
-    protected int id;
+    private static int SEQUENTIAL = 1;
+    private int id;
     protected String cpf, name, adress;
     protected Date birthday, signupAt;
-    
+    protected ContaPF cc, cp;
+ 
     public Cliente(){
         this.signupAt = new Date(System.currentTimeMillis());
+        this.id = SEQUENTIAL++;
     }
     
     public int getId() {
@@ -66,4 +69,21 @@ public class Cliente {
     public void setSingupAt(Date singupAt) {
         this.signupAt = singupAt;
     }
+    
+        public ContaPF getCc() {
+        return cc;
+    }
+
+    public void setCc(ContaPF cc) {
+        this.cc = cc;
+    }
+
+    public ContaPF getCp() {
+        return cp;
+    }
+
+    public void setCp(ContaPF cp) {
+        this.cp = cp;
+    }
+   
 }

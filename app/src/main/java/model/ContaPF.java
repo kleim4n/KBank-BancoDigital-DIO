@@ -39,18 +39,15 @@ public abstract class ContaPF implements IContaPF{
     @Override
     public void deposit(float cash) {
         this.balance += cash;
-        this.printGeneralInfos();
     }
     
     @Override
     public boolean withdraw(float cash) {
         if(this.balance >= cash){
             this.balance -= cash;
-            this.printGeneralInfos();
             return true;
         }
-        this.printGeneralInfos();
-        return false;
+        else return false;
     }
     
     public void transfer(float cash, int agencyNumber, int accountNumber){
@@ -111,7 +108,12 @@ public abstract class ContaPF implements IContaPF{
 
     @Override
     public void printGeneralInfos() {
-        System.out.println(this.toString());
+        String text = "| %-8d | %-18s | %-14s | %-8.2f |%n";
+        System.out.format("+----------+--------------------+----------------+----------+%n");
+        System.out.format("| Nº Conta | NOME DO CLIENTE    | Tipo de conta  | SALDO R$ |%n");
+        System.out.format("+----------+--------------------+----------------+----------|%n");
+        System.out.format(text, this.getAccountNumber(), this.getClient().getName(), this.getAccountTypeStr(), this.getBalance());
+        System.out.format("+----------+--------------------+----------------+----------+%n");
     }
 
     @Override
@@ -126,4 +128,7 @@ public abstract class ContaPF implements IContaPF{
         return message;
     }
     
+    public String getAccountTypeStr() {
+        return this.accountsTypes.get(this.accountType);
+    }
 }
